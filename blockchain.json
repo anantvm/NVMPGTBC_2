@@ -1,0 +1,390 @@
+{
+  "chain": [
+    {
+      "block_id": "0",
+      "hash": "2e899e61d6ffacfd541f9ae78fc9f56701071b98be743142e12963cc08e13195",
+      "merkle_root": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "nonce": 0,
+      "placement_decision": null,
+      "previous_hash": "0",
+      "timestamp": 1762611462.6281452,
+      "transactions": []
+    },
+    {
+      "block_id": "1",
+      "hash": "00b02c41c25cee44e675c18bad0f611eb4a4b945dd8a4c864ebd977ef5f76063",
+      "merkle_root": "ffff3f0f7c07bb58b9515880de1c4ed83c657a71e3802a943f9b19ca565b8f7d",
+      "nonce": 149,
+      "placement_decision": {
+        "decision_id": "1",
+        "energy_efficiency": 0.8635578583765113,
+        "load_balance_score": 0.9549754365313334,
+        "overall_efficiency": 0.6743099884723535,
+        "placement": {
+          "vm_1": "node_1",
+          "vm_2": "node_1",
+          "vm_3": "node_4",
+          "vm_4": "node_1",
+          "vm_5": "node_2"
+        },
+        "resource_utilization": 0.321875,
+        "timestamp": 1762611462.6341195
+      },
+      "previous_hash": "2e899e61d6ffacfd541f9ae78fc9f56701071b98be743142e12963cc08e13195",
+      "timestamp": 1762611462.6341248,
+      "transactions": [
+        {
+          "action": "request",
+          "efficiency_score": 0.0,
+          "gas_fee": 0.05892980230204908,
+          "node_id": "",
+          "requester": "user_a",
+          "timestamp": 1762611462.6285214,
+          "tx_id": "tx_106fafe893604b89a61292c66e141373",
+          "vm_id": "vm_1"
+        },
+        {
+          "action": "request",
+          "efficiency_score": 0.0,
+          "gas_fee": 0.03566769781028506,
+          "node_id": "",
+          "requester": "user_b",
+          "timestamp": 1762611462.628858,
+          "tx_id": "tx_33cb53f8edae4cbd8ffd486c23120a34",
+          "vm_id": "vm_2"
+        },
+        {
+          "action": "request",
+          "efficiency_score": 0.0,
+          "gas_fee": 0.051789286386080775,
+          "node_id": "",
+          "requester": "user_c",
+          "timestamp": 1762611462.6295583,
+          "tx_id": "tx_f1f96011f2074588acb0925a15ec98b2",
+          "vm_id": "vm_3"
+        },
+        {
+          "action": "request",
+          "efficiency_score": 0.0,
+          "gas_fee": 0.03216447783504467,
+          "node_id": "",
+          "requester": "user_d",
+          "timestamp": 1762611462.629936,
+          "tx_id": "tx_475061c3561947148a634e29ddb33116",
+          "vm_id": "vm_4"
+        },
+        {
+          "action": "request",
+          "efficiency_score": 0.0,
+          "gas_fee": 0.06185285399285139,
+          "node_id": "",
+          "requester": "user_e",
+          "timestamp": 1762611462.6302245,
+          "tx_id": "tx_8f28dab5d07c4e2c964f172e9af8141f",
+          "vm_id": "vm_5"
+        },
+        {
+          "action": "allocate",
+          "efficiency_score": 0.6743099884723535,
+          "gas_fee": 0.05,
+          "node_id": "node_1",
+          "requester": "system",
+          "timestamp": 1762611462.632567,
+          "tx_id": "tx_633844bf816d469a97bbf256d81d0145",
+          "vm_id": "vm_1"
+        },
+        {
+          "action": "allocate",
+          "efficiency_score": 0.6743099884723535,
+          "gas_fee": 0.05,
+          "node_id": "node_4",
+          "requester": "system",
+          "timestamp": 1762611462.6328843,
+          "tx_id": "tx_f8811803d9344b50beb9584d48870a9b",
+          "vm_id": "vm_3"
+        },
+        {
+          "action": "allocate",
+          "efficiency_score": 0.6743099884723535,
+          "gas_fee": 0.05,
+          "node_id": "node_1",
+          "requester": "system",
+          "timestamp": 1762611462.6331673,
+          "tx_id": "tx_dc21b2878b564db49e13b52629e1b1c3",
+          "vm_id": "vm_2"
+        },
+        {
+          "action": "allocate",
+          "efficiency_score": 0.6743099884723535,
+          "gas_fee": 0.05,
+          "node_id": "node_1",
+          "requester": "system",
+          "timestamp": 1762611462.6334443,
+          "tx_id": "tx_857ee51976fd4f0d83683e5242e994ce",
+          "vm_id": "vm_4"
+        },
+        {
+          "action": "allocate",
+          "efficiency_score": 0.6743099884723535,
+          "gas_fee": 0.05,
+          "node_id": "node_2",
+          "requester": "system",
+          "timestamp": 1762611462.6337254,
+          "tx_id": "tx_22d61d00258d484eae5b265fc073358d",
+          "vm_id": "vm_5"
+        }
+      ]
+    },
+    {
+      "block_id": "2",
+      "hash": "00233f9f2f7806cbb7dd192e3c2fb48a281ff7697349da2f068c5faac8ebfb75",
+      "merkle_root": "8c41cc381cc9d2e838b96c8215f954577e9f7be911fd441797703476d6633ad6",
+      "nonce": 46,
+      "placement_decision": {
+        "decision_id": "2",
+        "energy_efficiency": 0.8635578583765113,
+        "load_balance_score": 0.9549754365313334,
+        "overall_efficiency": 0.6743099884723535,
+        "placement": {
+          "vm_1": "node_1",
+          "vm_2": "node_1",
+          "vm_3": "node_4",
+          "vm_4": "node_1",
+          "vm_5": "node_2"
+        },
+        "resource_utilization": 0.321875,
+        "timestamp": 1762611475.2865374
+      },
+      "previous_hash": "00b02c41c25cee44e675c18bad0f611eb4a4b945dd8a4c864ebd977ef5f76063",
+      "timestamp": 1762611475.2865422,
+      "transactions": [
+        {
+          "action": "request",
+          "efficiency_score": 0.0,
+          "gas_fee": 0.05063588825701147,
+          "node_id": "",
+          "requester": "user_a",
+          "timestamp": 1762611475.2801528,
+          "tx_id": "tx_ae30517c356246899b49b1ce4447560e",
+          "vm_id": "vm_1"
+        },
+        {
+          "action": "request",
+          "efficiency_score": 0.0,
+          "gas_fee": 0.03799465062526717,
+          "node_id": "",
+          "requester": "user_b",
+          "timestamp": 1762611475.2807982,
+          "tx_id": "tx_69333a8e3bc44c55baa78655484bf1b6",
+          "vm_id": "vm_2"
+        },
+        {
+          "action": "request",
+          "efficiency_score": 0.0,
+          "gas_fee": 0.0599761288068904,
+          "node_id": "",
+          "requester": "user_c",
+          "timestamp": 1762611475.2812042,
+          "tx_id": "tx_31a6621faa17470288177766aa64b97a",
+          "vm_id": "vm_3"
+        },
+        {
+          "action": "request",
+          "efficiency_score": 0.0,
+          "gas_fee": 0.08601818294817377,
+          "node_id": "",
+          "requester": "user_d",
+          "timestamp": 1762611475.2815683,
+          "tx_id": "tx_ce80d3a6d042422a8d8fb394ae34c247",
+          "vm_id": "vm_4"
+        },
+        {
+          "action": "request",
+          "efficiency_score": 0.0,
+          "gas_fee": 0.027728178149161918,
+          "node_id": "",
+          "requester": "user_e",
+          "timestamp": 1762611475.2819235,
+          "tx_id": "tx_b17258f034f44c59be1c202b4bc46087",
+          "vm_id": "vm_5"
+        },
+        {
+          "action": "allocate",
+          "efficiency_score": 0.6743099884723535,
+          "gas_fee": 0.05,
+          "node_id": "node_1",
+          "requester": "system",
+          "timestamp": 1762611475.284376,
+          "tx_id": "tx_9e952c7db461417d8de19cf8b7f454c4",
+          "vm_id": "vm_1"
+        },
+        {
+          "action": "allocate",
+          "efficiency_score": 0.6743099884723535,
+          "gas_fee": 0.05,
+          "node_id": "node_4",
+          "requester": "system",
+          "timestamp": 1762611475.2848434,
+          "tx_id": "tx_2e5b32d7905a4d12ba3f474ce1193b3c",
+          "vm_id": "vm_3"
+        },
+        {
+          "action": "allocate",
+          "efficiency_score": 0.6743099884723535,
+          "gas_fee": 0.05,
+          "node_id": "node_1",
+          "requester": "system",
+          "timestamp": 1762611475.2852473,
+          "tx_id": "tx_4acbd467e5cb4168a11b15680dcb586b",
+          "vm_id": "vm_2"
+        },
+        {
+          "action": "allocate",
+          "efficiency_score": 0.6743099884723535,
+          "gas_fee": 0.05,
+          "node_id": "node_1",
+          "requester": "system",
+          "timestamp": 1762611475.285643,
+          "tx_id": "tx_a0d77358ba69435a8be39214d1fab565",
+          "vm_id": "vm_4"
+        },
+        {
+          "action": "allocate",
+          "efficiency_score": 0.6743099884723535,
+          "gas_fee": 0.05,
+          "node_id": "node_2",
+          "requester": "system",
+          "timestamp": 1762611475.286032,
+          "tx_id": "tx_b9a35c8cda494f1cb38fd740318a1c46",
+          "vm_id": "vm_5"
+        }
+      ]
+    },
+    {
+      "block_id": "3",
+      "hash": "00001be79163a6bc790dcba00174709b9c25c79c08ba88a467265ec7bf845cf5",
+      "merkle_root": "f2e1bec07b43325970a69bfad0afa75d4ee68470b54cec95daaccde86b6634b7",
+      "nonce": 145,
+      "placement_decision": {
+        "decision_id": "3",
+        "energy_efficiency": 0.8635578583765113,
+        "load_balance_score": 0.9549754365313334,
+        "overall_efficiency": 0.6743099884723535,
+        "placement": {
+          "vm_1": "node_1",
+          "vm_2": "node_1",
+          "vm_3": "node_4",
+          "vm_4": "node_1",
+          "vm_5": "node_2"
+        },
+        "resource_utilization": 0.321875,
+        "timestamp": 1762611475.5438619
+      },
+      "previous_hash": "00233f9f2f7806cbb7dd192e3c2fb48a281ff7697349da2f068c5faac8ebfb75",
+      "timestamp": 1762611475.543866,
+      "transactions": [
+        {
+          "action": "request",
+          "efficiency_score": 0.0,
+          "gas_fee": 0.07340052385415312,
+          "node_id": "",
+          "requester": "user_a",
+          "timestamp": 1762611475.5358121,
+          "tx_id": "tx_84b7f677c1bb467f9553fc5ec00640c8",
+          "vm_id": "vm_1"
+        },
+        {
+          "action": "request",
+          "efficiency_score": 0.0,
+          "gas_fee": 0.013093553080550938,
+          "node_id": "",
+          "requester": "user_b",
+          "timestamp": 1762611475.5364037,
+          "tx_id": "tx_54e869ae1cfd49c6adc5770530ede65d",
+          "vm_id": "vm_2"
+        },
+        {
+          "action": "request",
+          "efficiency_score": 0.0,
+          "gas_fee": 0.06234525203155275,
+          "node_id": "",
+          "requester": "user_c",
+          "timestamp": 1762611475.5369356,
+          "tx_id": "tx_ece3a256d89240728b10faa533bf9833",
+          "vm_id": "vm_3"
+        },
+        {
+          "action": "request",
+          "efficiency_score": 0.0,
+          "gas_fee": 0.07936689134715025,
+          "node_id": "",
+          "requester": "user_d",
+          "timestamp": 1762611475.5374439,
+          "tx_id": "tx_2d8b6d090bf040719181ac9dc1f5144b",
+          "vm_id": "vm_4"
+        },
+        {
+          "action": "request",
+          "efficiency_score": 0.0,
+          "gas_fee": 0.05832449522317447,
+          "node_id": "",
+          "requester": "user_e",
+          "timestamp": 1762611475.538217,
+          "tx_id": "tx_5a0bf019287548ca98bf3072d249dac9",
+          "vm_id": "vm_5"
+        },
+        {
+          "action": "allocate",
+          "efficiency_score": 0.6743099884723535,
+          "gas_fee": 0.05,
+          "node_id": "node_1",
+          "requester": "system",
+          "timestamp": 1762611475.5409398,
+          "tx_id": "tx_f7506b58cb734503a38cb50cdf4197a4",
+          "vm_id": "vm_1"
+        },
+        {
+          "action": "allocate",
+          "efficiency_score": 0.6743099884723535,
+          "gas_fee": 0.05,
+          "node_id": "node_4",
+          "requester": "system",
+          "timestamp": 1762611475.5415745,
+          "tx_id": "tx_d5f235d140c94cc18f761fc4c0af1cc4",
+          "vm_id": "vm_3"
+        },
+        {
+          "action": "allocate",
+          "efficiency_score": 0.6743099884723535,
+          "gas_fee": 0.05,
+          "node_id": "node_1",
+          "requester": "system",
+          "timestamp": 1762611475.5421429,
+          "tx_id": "tx_f50a6f0da688497dae86256363c640e6",
+          "vm_id": "vm_2"
+        },
+        {
+          "action": "allocate",
+          "efficiency_score": 0.6743099884723535,
+          "gas_fee": 0.05,
+          "node_id": "node_1",
+          "requester": "system",
+          "timestamp": 1762611475.542673,
+          "tx_id": "tx_87ddd4ddf9004840bc97683597f36bac",
+          "vm_id": "vm_4"
+        },
+        {
+          "action": "allocate",
+          "efficiency_score": 0.6743099884723535,
+          "gas_fee": 0.05,
+          "node_id": "node_2",
+          "requester": "system",
+          "timestamp": 1762611475.5431962,
+          "tx_id": "tx_19bb2c57fcb942eeafc011d494750870",
+          "vm_id": "vm_5"
+        }
+      ]
+    }
+  ],
+  "pending_transactions": []
+}

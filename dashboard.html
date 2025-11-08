@@ -1,0 +1,206 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>VPGC — Performance Dashboard</title>
+  <style>
+    body { font-family: Arial, Helvetica, sans-serif; margin: 16px; background:#f5f7fb; color:#222; }
+    h1 { margin-bottom: 6px; }
+    .row { display:flex; gap:20px; flex-wrap:wrap; }
+    .card { background:white; padding:12px; border-radius:8px; box-shadow:0 1px 6px rgba(0,0,0,0.08); flex:1 1 480px; }
+    canvas { width:100% !important; height:320px !important; }
+    .controls { margin-bottom:12px; }
+    .stat { display:inline-block; margin-right:12px; font-weight:600; }
+    .small { font-size:0.9rem; color:#666; }
+  </style>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <h1>VM Placement — Model Performance Dashboard</h1>
+  <div class="small">Shows placement-decision performance metrics recorded on-chain per block. Auto-refresh every 10s.</div>
+
+  <div class="controls">
+    <button id="refreshBtn">Refresh now</button>
+    <span id="lastUpdated" style="margin-left:12px; color:#444"></span>
+  </div>
+
+  <div class="row">
+    <div class="card">
+      <h3>Overall Efficiency (per block)</h3>
+      <canvas id="overallChart"></canvas>
+    </div>
+
+    <div class="card">
+      <h3>Component Metrics (resource / energy / load)</h3>
+      <canvas id="componentsChart"></canvas>
+    </div>
+  </div>
+
+  <div class="row" style="margin-top:16px;">
+    <div class="card">
+      <h3>Recent Placement Decisions (latest 10)</h3>
+      <div id="decisionList" class="small"></div>
+    </div>
+
+    <div class="card">
+      <h3>Node Utilization (latest snapshot)</h3>
+      <canvas id="nodeUtilChart"></canvas>
+    </div>
+  </div>
+
+<script>
+const API_BASE = 'http://127.0.0.1:5000';   // Flask API base (adjust if different host/port)
+const API_LEDGER = API_BASE + '/api/blockchain/ledger';
+const API_STATS  = API_BASE + '/api/stats';
+let overallChart, componentsChart, nodeUtilChart;
+
+function makeLineChart(ctx, label, labelsArr, dataArr, color='rgba(54,162,235,0.9)') {
+  return new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labelsArr,
+      datasets: [{
+        label: label,
+        data: dataArr,
+        borderColor: color,
+        backgroundColor: color.replace('0.9','0.12'),
+        tension: 0.25,
+        pointRadius: 3,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true, max: 1 }
+      }
+    }
+  });
+}
+
+function makeMultiLine(ctx, labelsArr, series) {
+  const datasets = series.map(s => ({
+    label: s.label,
+    data: s.data,
+    borderColor: s.color,
+    backgroundColor: s.color.replace('0.9','0.08'),
+    tension: 0.25,
+    pointRadius: 2,
+    fill: true
+  }));
+  return new Chart(ctx, {
+    type: 'line',
+    data: { labels: labelsArr, datasets },
+    options: {
+      responsive: true,
+      plugins: { legend: { position: 'bottom' } },
+      scales: { y: { beginAtZero: true, max:1 } }
+    }
+  });
+}
+
+async function fetchLedger() {
+  const res = await fetch(API_LEDGER);
+  if (!res.ok) throw new Error('ledger fetch failed');
+  return res.json();
+}
+
+async function fetchStats() {
+  const res = await fetch(API_STATS);
+  if (!res.ok) throw new Error('stats fetch failed');
+  return res.json();
+}
+
+function renderDecisionList(decisions) {
+  const el = document.getElementById('decisionList');
+  if (!decisions.length) { el.innerHTML = '<div class="small">No placement decisions found on the blockchain yet.</div>'; return; }
+  const rows = decisions.slice(-10).reverse().map(d => {
+    const ts = new Date(d.timestamp*1000 || d.timestamp).toLocaleString();
+    return `<div style="margin-bottom:8px">
+      <div><strong>Block ${d.block_id}</strong> — Overall: ${(d.overall_efficiency||0).toFixed(3)} — ${ts}</div>
+      <div class="small">Resource:${(d.resource_utilization||0).toFixed(3)} • Energy:${(d.energy_efficiency||0).toFixed(3)} • Load:${(d.load_balance_score||0).toFixed(3)}</div>
+    </div>`;
+  });
+  el.innerHTML = rows.join('');
+}
+
+async function refreshAll() {
+  try {
+    const ledger = await fetchLedger();
+    // Extract placement decisions with metrics
+    const decisions = ledger
+      .map(b => ({ block_id: b.block_id, timestamp: b.timestamp, placement_decision: b.placement_decision, hash: b.hash }))
+      .filter(b => b.placement_decision)
+      .map(b => {
+        const pd = b.placement_decision;
+        return {
+          block_id: b.block_id,
+          timestamp: pd.timestamp || b.timestamp,
+          overall_efficiency: pd.overall_efficiency,
+          resource_utilization: pd.resource_utilization,
+          energy_efficiency: pd.energy_efficiency,
+          load_balance_score: pd.load_balance_score
+        };
+      });
+
+    const labels = decisions.map((d,i) => `B${d.block_id}`);
+    const overall = decisions.map(d => d.overall_efficiency || 0);
+    const resource = decisions.map(d => d.resource_utilization || 0);
+    const energy = decisions.map(d => d.energy_efficiency || 0);
+    const load = decisions.map(d => d.load_balance_score || 0);
+
+    // Overall chart
+    const overallCtx = document.getElementById('overallChart').getContext('2d');
+    if (overallChart) overallChart.destroy();
+    overallChart = makeLineChart(overallCtx, 'Overall Efficiency', labels, overall, 'rgba(75,192,192,0.9)');
+
+    // Components chart
+    const compCtx = document.getElementById('componentsChart').getContext('2d');
+    if (componentsChart) componentsChart.destroy();
+    componentsChart = makeMultiLine(compCtx, labels, [
+      { label: 'Resource Utilization', data: resource, color: 'rgba(54,162,235,0.9)' },
+      { label: 'Energy Efficiency', data: energy, color: 'rgba(255,159,64,0.9)' },
+      { label: 'Load Balance', data: load, color: 'rgba(153,102,255,0.9)' }
+    ]);
+
+    renderDecisionList(decisions.map((d, i) => ({ ...d, block_id: decisions[i].block_id })));
+
+    // Node utilization
+    const stats = await fetchStats();
+    const nodeStats = stats.node_statistics || [];
+    const nodeLabels = nodeStats.map(n => n.node_id);
+    const cpuVals = nodeStats.map(n => n.cpu_utilization);
+    const memVals = nodeStats.map(n => n.memory_utilization);
+
+    const nodeCtx = document.getElementById('nodeUtilChart').getContext('2d');
+    if (nodeUtilChart) nodeUtilChart.destroy();
+    nodeUtilChart = new Chart(nodeCtx, {
+      type: 'bar',
+      data: {
+        labels: nodeLabels,
+        datasets: [
+          { label: 'CPU', data: cpuVals, backgroundColor: 'rgba(54,162,235,0.8)' },
+          { label: 'Memory', data: memVals, backgroundColor: 'rgba(255,99,132,0.8)' }
+        ]
+      },
+      options: { responsive:true, scales: { y: { beginAtZero:true, max:1 } } }
+    });
+
+    document.getElementById('lastUpdated').textContent = 'Last updated: ' + new Date().toLocaleTimeString();
+  } catch (err) {
+    console.error(err);
+    document.getElementById('lastUpdated').textContent = 'Error loading data';
+  }
+}
+
+document.getElementById('refreshBtn').addEventListener('click', refreshAll);
+
+refreshAll();
+// Auto refresh every 10 seconds
+setInterval(refreshAll, 10000);
+</script>
+</body>
+</html>
